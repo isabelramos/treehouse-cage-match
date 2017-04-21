@@ -6,3 +6,13 @@ body {
 	color: dimgrey;
 	text-align: center;
 }
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group {
+	margin-right: 2%;
+}
