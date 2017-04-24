@@ -17,10 +17,20 @@ body {
 	margin-right: 2%;
 }
 
-#container {
+#user-container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+#winner-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#winner-container > .winner {
+    flex: 0 1 100%;
 }
 
 .thumbnail {
@@ -31,6 +41,14 @@ body {
 
 .winner {
 	background-color: white;
+	border-radius: 5px;
+	padding: 15px 0;
 	color: dimgrey;
-	padding: 25px 75px;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.badges {
+	width: 50px;
+	margin: 5px;
 }
