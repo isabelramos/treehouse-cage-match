@@ -16,3 +16,21 @@ body {
 .input-group {
 	margin-right: 2%;
 }
+
+#container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.thumbnail {
+	margin: 10%;
+	color: dimgrey;
+	text-align: center;
+}
+
+.winner {
+	background-color: white;
+	color: dimgrey;
+	padding: 25px 75px;
+}
