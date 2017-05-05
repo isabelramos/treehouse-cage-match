@@ -1,10 +1,11 @@
 $(document).ready(function() {
 
 
-	firstUsernameArray = [];
-	secondUsernameArray = [];
+	let firstUsernameArray = [];
+	let secondUsernameArray = [];
 
 	const writeUsersToDOM = () => {
+
         let userString = "";
 
 
@@ -28,7 +29,7 @@ $(document).ready(function() {
 	      	userString += `</div></div></div>`;
     	}
 
-		$("#user-container").append(userString);
+		$("#user-container").html(userString);
 
     };
 
@@ -52,7 +53,7 @@ $(document).ready(function() {
 				} else {
 					winnerString += `<div class="winner"><h2>${secondUsernameArray[j].name} wins!</h2></div>`;
 					for (let k=0; k < user2Badges.length; k++) {
-						winnerString += `<div><img class="badges" src="${user1Badges[k].icon_url}"></div>`;
+						winnerString += `<div><img class="badges" src="${user2Badges[k].icon_url}"></div>`;
 					}
 				}
 	    	}
@@ -64,7 +65,7 @@ $(document).ready(function() {
         	});
 		});
 
-	    $("#winner-container").append(winnerString);
+	    $("#winner-container").html(winnerString);
 
 	};
 
@@ -77,8 +78,8 @@ $(document).ready(function() {
 
 	const loadFirstUsername = () => {
 		return new Promise((resolve, reject) => {
-			// $.ajax(buildURL($("#user1-input").val()))
-			$.ajax("https://teamtreehouse.com/krissycaron.json")
+			$.ajax(buildURL($("#user1-input").val()))
+			// $.ajax("https://teamtreehouse.com/krissycaron.json")
 			.done((data) => resolve(data))
 			.fail((error) => reject(error));
 		});
@@ -86,8 +87,8 @@ $(document).ready(function() {
 
 	const loadSecondUsername = () => {
 		return new Promise((resolve, reject) => {
-			// $.ajax(buildURL($("#user2-input").val()))
-			$.ajax("https://teamtreehouse.com/isabelramos.json")
+			$.ajax(buildURL($("#user2-input").val()))
+			// $.ajax("https://teamtreehouse.com/isabelramos.json")
 			.done((data2) => resolve(data2))
 			.fail((error) => reject(error));
 		});
@@ -95,6 +96,10 @@ $(document).ready(function() {
 
 
 	$("#battle-button").click((event) => {
+
+		firstUsernameArray = [];
+		secondUsernameArray = [];
+
 		Promise.all([loadFirstUsername(), loadSecondUsername()])
 		.then(function(result){
 			result.forEach(function(xhrCall, index) {
