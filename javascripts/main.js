@@ -1,33 +1,28 @@
 $(document).ready(function() {
 
 
-	let firstUsernameArray = [];
-	let secondUsernameArray = [];
+	let firstUsernameArray = {};
+	let secondUsernameArray = {};
 
 	const writeUsersToDOM = () => {
 
         let userString = "";
 
-
-        for (let i=0; i < firstUsernameArray.length; i++) {
 	        userString += `<div class="row col-sm-3">`;
 	        userString += `<div class="thumbnail">`;
-	        userString += `<img src="${firstUsernameArray[i].gravatar_url}"`;
+	        userString += `<img src="${firstUsernameArray.gravatar_url}"`;
 	        userString += `<div class="caption">`;           
-	        userString += `<h3>${firstUsernameArray[i].name}</h3>`;
-		    userString += `<p>Total Points: ${firstUsernameArray[i].points.total}</p>`;
+	        userString += `<h3>${firstUsernameArray.name}</h3>`;
+		    userString += `<p>Total Points: ${firstUsernameArray.points.total}</p>`;
 	      	userString += `</div></div></div>`;
-	    }
 
-	    for (let i=0; i < secondUsernameArray.length; i++) {
 	      	userString += `<div class="row col-sm-3">`;
 	        userString += `<div class="thumbnail">`;
-	        userString += `<img src="${secondUsernameArray[i].gravatar_url}"`;
+	        userString += `<img src="${secondUsernameArray.gravatar_url}"`;
 	        userString += `<div class="caption">`;           
-	        userString += `<h3>${secondUsernameArray[i].name}</h3>`;
-		    userString += `<p>Total Points: ${secondUsernameArray[i].points.total}</p>`;
+	        userString += `<h3>${secondUsernameArray.name}</h3>`;
+		    userString += `<p>Total Points: ${secondUsernameArray.points.total}</p>`;
 	      	userString += `</div></div></div>`;
-    	}
 
 		$("#user-container").html(userString);
 
@@ -37,27 +32,22 @@ $(document).ready(function() {
 
     	winnerString = "";
 
-	    for (let i=0; i < firstUsernameArray.length; i++) {
-	    	for (let j=0; j < secondUsernameArray.length; j++) {
+		let user1Points = firstUsernameArray.points;
+		let user2Points = secondUsernameArray.points;
+		let user1Badges = firstUsernameArray.badges;
+		let user2Badges = secondUsernameArray.badges;
 
-		    	let user1Points = firstUsernameArray[i].points;
-				let user2Points = secondUsernameArray[j].points;
-				let user1Badges = firstUsernameArray[i].badges;
-				let user2Badges = secondUsernameArray[j].badges;
-
-				if (user1Points.total > user2Points.total) {
-					winnerString += `<div class="winner"><h2>${firstUsernameArray[i].name} wins!</h2></div>`;
-					for (let k=0; k < user1Badges.length; k++) {
-						winnerString += `<div><img class="badges" src="${user1Badges[k].icon_url}"></div>`;
-					}
-				} else {
-					winnerString += `<div class="winner"><h2>${secondUsernameArray[j].name} wins!</h2></div>`;
-					for (let k=0; k < user2Badges.length; k++) {
-						winnerString += `<div><img class="badges" src="${user2Badges[k].icon_url}"></div>`;
-					}
+		if (user1Points.total > user2Points.total) {
+			winnerString += `<div class="winner"><h2>${firstUsernameArray.name} wins!</h2></div>`;
+			for (let k=0; k < user1Badges.length; k++) {
+				winnerString += `<div><img class="badges" src="${user1Badges[k].icon_url}"></div>`;
+			}
+			} else {
+				winnerString += `<div class="winner"><h2>${secondUsernameArray.name} wins!</h2></div>`;
+				for (let k=0; k < user2Badges.length; k++) {
+					winnerString += `<div><img class="badges" src="${user2Badges[k].icon_url}"></div>`;
 				}
 	    	}
-	    }
 	
 		$(document).click(function() {
 	  		$(".badges").animate({
@@ -97,16 +87,16 @@ $(document).ready(function() {
 
 	$("#battle-button").click((event) => {
 
-		firstUsernameArray = [];
-		secondUsernameArray = [];
+		firstUsernameArray = {};
+		secondUsernameArray = {};
 
 		Promise.all([loadFirstUsername(), loadSecondUsername()])
 		.then(function(result){
 			result.forEach(function(xhrCall, index) {
 				if (index === 0) {
-					firstUsernameArray.push(xhrCall);
+					firstUsernameArray = xhrCall;
 				} else {
-					secondUsernameArray.push(xhrCall);
+					secondUsernameArray = xhrCall;
 				}
 			});
 			
